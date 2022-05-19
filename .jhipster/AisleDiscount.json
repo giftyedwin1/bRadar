@@ -1,0 +1,36 @@
+{
+  "applications": "*",
+  "changelogDate": "20220519201909",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "aisle_discount",
+  "fields": [
+    {
+      "fieldName": "aisleId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "product",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "discount",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "AisleDiscount",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "customer",
+      "otherEntityRelationshipName": "aisleDiscount",
+      "ownerSide": false,
+      "relationshipName": "customer",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

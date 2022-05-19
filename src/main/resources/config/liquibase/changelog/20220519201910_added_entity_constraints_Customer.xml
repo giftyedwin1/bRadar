@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity Customer.
+    -->
+    <changeSet id="20220519201910-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="rel_customer__aisle_discount"
+                                 constraintName="fk_rel_customer__aisle_discount__customer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer"/>
+
+        <addForeignKeyConstraint baseColumnNames="aisle_discount_id"
+                                 baseTableName="rel_customer__aisle_discount"
+                                 constraintName="fk_rel_customer__aisle_discount__aisle_discount_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="aisle_discount"/>
+    </changeSet>
+</databaseChangeLog>

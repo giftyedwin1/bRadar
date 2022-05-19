@@ -32,9 +32,9 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/SALaunch
-    username: SALaunch
-    password:
+    url: jdbc:postgresql://salaunchdb.csxtsc7qc1kv.us-east-1.rds.amazonaws.com:5432/postgres
+    username: postgres
+    password: India1947
     hikari:
       poolName: Hikari
       auto-commit: false

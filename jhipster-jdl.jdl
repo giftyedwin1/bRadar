@@ -1,0 +1,17 @@
+entity AisleDiscount {
+	aisleId String,
+    product String,
+    discount String
+}
+
+entity Customer {
+	customerId String,
+    age String,
+    gender String
+}
+
+relationship ManyToMany {
+  Customer{aisleDiscount(aisleId)} to AisleDiscount{customer}
+}
+
+service all with serviceImpl

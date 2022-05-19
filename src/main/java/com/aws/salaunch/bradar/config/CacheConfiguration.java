@@ -48,6 +48,10 @@ public class CacheConfiguration {
             createCache(cm, com.aws.salaunch.bradar.domain.User.class.getName());
             createCache(cm, com.aws.salaunch.bradar.domain.Authority.class.getName());
             createCache(cm, com.aws.salaunch.bradar.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.aws.salaunch.bradar.domain.AisleDiscount.class.getName());
+            createCache(cm, com.aws.salaunch.bradar.domain.AisleDiscount.class.getName() + ".customers");
+            createCache(cm, com.aws.salaunch.bradar.domain.Customer.class.getName());
+            createCache(cm, com.aws.salaunch.bradar.domain.Customer.class.getName() + ".aisleDiscounts");
             // jhipster-needle-ehcache-add-entry
         };
     }
