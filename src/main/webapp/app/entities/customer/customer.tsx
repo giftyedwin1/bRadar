@@ -49,6 +49,7 @@ export const Customer = (props: RouteComponentProps<{ url: string }>) => {
                 <th>Customer Id</th>
                 <th>Age</th>
                 <th>Gender</th>
+                <th>Matched</th>
                 <th>Aisle Discount</th>
                 <th />
               </tr>
@@ -64,6 +65,7 @@ export const Customer = (props: RouteComponentProps<{ url: string }>) => {
                   <td>{customer.customerId}</td>
                   <td>{customer.age}</td>
                   <td>{customer.gender}</td>
+                  <td>{customer.matched ? 'true' : 'false'}</td>
                   <td>
                     {customer.aisleDiscounts
                       ? customer.aisleDiscounts.map((val, j) => (

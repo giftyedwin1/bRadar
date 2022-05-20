@@ -8,6 +8,7 @@ entity Customer {
 	customerId String,
     age String,
     gender String
+    matched Boolean
 }
 
 relationship ManyToMany {

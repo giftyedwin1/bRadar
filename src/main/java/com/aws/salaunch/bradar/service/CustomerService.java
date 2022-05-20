@@ -63,4 +63,8 @@ public interface CustomerService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+    
+    public Customer updateCustomerMatch ( String customerId );
+    
+    public Customer findByCustomerId (String customerId);
 }

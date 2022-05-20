@@ -38,6 +38,10 @@ export const CustomerDetail = (props: RouteComponentProps<{ id: string }>) => {
             <span id="gender">Gender</span>
           </dt>
           <dd>{customerEntity.gender}</dd>
+          <dt>
+            <span id="matched">Matched</span>
+          </dt>
+          <dd>{customerEntity.matched ? 'true' : 'false'}</dd>
           <dt>Aisle Discount</dt>
           <dd>
             {customerEntity.aisleDiscounts

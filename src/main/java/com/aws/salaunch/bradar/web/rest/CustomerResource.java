@@ -9,10 +9,16 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -23,6 +29,9 @@ import tech.jhipster.web.util.ResponseUtil;
 @RestController
 @RequestMapping("/api")
 public class CustomerResource {
+	
+	@PersistenceContext
+    private EntityManager manager;
 
     private final Logger log = LoggerFactory.getLogger(CustomerResource.class);
 
@@ -169,5 +178,41 @@ public class CustomerResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+    
+    
+    
+    /**
+     * {@code PUT  /customers/:id} : Updates an existing customer.
+     *
+     * @param id the id of the customer to save.
+     * @param customer the customer to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated customer,
+     * or with status {@code 400 (Bad Request)} if the customer is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the customer couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PutMapping("/customers/match/{id}")
+    @Transactional
+    public ResponseEntity<Customer> updateCustomerMatch(
+        @PathVariable(value = "id", required = false) final String customerId,
+        @RequestBody Customer customer
+    ) throws URISyntaxException {
+        log.debug("REST request to update Customer : {}, {}", customerId, customer);
+        
+        Customer cust = customerService.findByCustomerId(customerId);
+        cust.setMatched(customer.getMatched());
+        customerService.update(cust);
+        //Query jpqlQuery = manager.createQuery("UPDATE Customer SET matched = :matched WHERE customer_id = :customer_id");
+  	  	//jpqlQuery.setParameter("matched", true);
+  	  	//jpqlQuery.setParameter("customer_id", customer.getMatched());
+  	  	//int rowsUpdated = jpqlQuery.executeUpdate();
+        
+        //Customer result = customerService.updateCustomerMatch(customerId);
+        log.debug("Result Customer Updated: {}", cust.getId());
+        return ResponseEntity
+                .ok()
+                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, cust.getId().toString()))
+                .body(cust);
     }
 }

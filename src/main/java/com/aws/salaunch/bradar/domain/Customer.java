@@ -14,6 +14,15 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "customer")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+
+@NamedNativeQueries({
+    @NamedNativeQuery(
+        name  = "updateCustomerMatched",
+        query = "UPDATE customer SET matched = ? WHERE customer_id = ?"
+    )
+})
+
+
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,6 +41,9 @@ public class Customer implements Serializable {
 
     @Column(name = "gender")
     private String gender;
+
+    @Column(name = "matched")
+    private Boolean matched;
 
     @ManyToMany
     @JoinTable(
@@ -97,6 +109,19 @@ public class Customer implements Serializable {
         this.gender = gender;
     }
 
+    public Boolean getMatched() {
+        return this.matched;
+    }
+
+    public Customer matched(Boolean matched) {
+        this.setMatched(matched);
+        return this;
+    }
+
+    public void setMatched(Boolean matched) {
+        this.matched = matched;
+    }
+
     public Set<AisleDiscount> getAisleDiscounts() {
         return this.aisleDiscounts;
     }
@@ -149,6 +174,7 @@ public class Customer implements Serializable {
             ", customerId='" + getCustomerId() + "'" +
             ", age='" + getAge() + "'" +
             ", gender='" + getGender() + "'" +
+            ", matched='" + getMatched() + "'" +
             "}";
     }
 }

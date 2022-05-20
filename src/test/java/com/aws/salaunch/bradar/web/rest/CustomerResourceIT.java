@@ -47,6 +47,9 @@ class CustomerResourceIT {
     private static final String DEFAULT_GENDER = "AAAAAAAAAA";
     private static final String UPDATED_GENDER = "BBBBBBBBBB";
 
+    private static final Boolean DEFAULT_MATCHED = false;
+    private static final Boolean UPDATED_MATCHED = true;
+
     private static final String ENTITY_API_URL = "/api/customers";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -77,7 +80,7 @@ class CustomerResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Customer createEntity(EntityManager em) {
-        Customer customer = new Customer().customerId(DEFAULT_CUSTOMER_ID).age(DEFAULT_AGE).gender(DEFAULT_GENDER);
+        Customer customer = new Customer().customerId(DEFAULT_CUSTOMER_ID).age(DEFAULT_AGE).gender(DEFAULT_GENDER).matched(DEFAULT_MATCHED);
         return customer;
     }
 
@@ -88,7 +91,7 @@ class CustomerResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Customer createUpdatedEntity(EntityManager em) {
-        Customer customer = new Customer().customerId(UPDATED_CUSTOMER_ID).age(UPDATED_AGE).gender(UPDATED_GENDER);
+        Customer customer = new Customer().customerId(UPDATED_CUSTOMER_ID).age(UPDATED_AGE).gender(UPDATED_GENDER).matched(UPDATED_MATCHED);
         return customer;
     }
 
@@ -113,6 +116,7 @@ class CustomerResourceIT {
         assertThat(testCustomer.getCustomerId()).isEqualTo(DEFAULT_CUSTOMER_ID);
         assertThat(testCustomer.getAge()).isEqualTo(DEFAULT_AGE);
         assertThat(testCustomer.getGender()).isEqualTo(DEFAULT_GENDER);
+        assertThat(testCustomer.getMatched()).isEqualTo(DEFAULT_MATCHED);
     }
 
     @Test
@@ -147,7 +151,8 @@ class CustomerResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(customer.getId().intValue())))
             .andExpect(jsonPath("$.[*].customerId").value(hasItem(DEFAULT_CUSTOMER_ID)))
             .andExpect(jsonPath("$.[*].age").value(hasItem(DEFAULT_AGE)))
-            .andExpect(jsonPath("$.[*].gender").value(hasItem(DEFAULT_GENDER)));
+            .andExpect(jsonPath("$.[*].gender").value(hasItem(DEFAULT_GENDER)))
+            .andExpect(jsonPath("$.[*].matched").value(hasItem(DEFAULT_MATCHED.booleanValue())));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -182,7 +187,8 @@ class CustomerResourceIT {
             .andExpect(jsonPath("$.id").value(customer.getId().intValue()))
             .andExpect(jsonPath("$.customerId").value(DEFAULT_CUSTOMER_ID))
             .andExpect(jsonPath("$.age").value(DEFAULT_AGE))
-            .andExpect(jsonPath("$.gender").value(DEFAULT_GENDER));
+            .andExpect(jsonPath("$.gender").value(DEFAULT_GENDER))
+            .andExpect(jsonPath("$.matched").value(DEFAULT_MATCHED.booleanValue()));
     }
 
     @Test
@@ -204,7 +210,7 @@ class CustomerResourceIT {
         Customer updatedCustomer = customerRepository.findById(customer.getId()).get();
         // Disconnect from session so that the updates on updatedCustomer are not directly saved in db
         em.detach(updatedCustomer);
-        updatedCustomer.customerId(UPDATED_CUSTOMER_ID).age(UPDATED_AGE).gender(UPDATED_GENDER);
+        updatedCustomer.customerId(UPDATED_CUSTOMER_ID).age(UPDATED_AGE).gender(UPDATED_GENDER).matched(UPDATED_MATCHED);
 
         restCustomerMockMvc
             .perform(
@@ -221,6 +227,7 @@ class CustomerResourceIT {
         assertThat(testCustomer.getCustomerId()).isEqualTo(UPDATED_CUSTOMER_ID);
         assertThat(testCustomer.getAge()).isEqualTo(UPDATED_AGE);
         assertThat(testCustomer.getGender()).isEqualTo(UPDATED_GENDER);
+        assertThat(testCustomer.getMatched()).isEqualTo(UPDATED_MATCHED);
     }
 
     @Test
@@ -308,6 +315,7 @@ class CustomerResourceIT {
         assertThat(testCustomer.getCustomerId()).isEqualTo(UPDATED_CUSTOMER_ID);
         assertThat(testCustomer.getAge()).isEqualTo(DEFAULT_AGE);
         assertThat(testCustomer.getGender()).isEqualTo(DEFAULT_GENDER);
+        assertThat(testCustomer.getMatched()).isEqualTo(DEFAULT_MATCHED);
     }
 
     @Test
@@ -322,7 +330,7 @@ class CustomerResourceIT {
         Customer partialUpdatedCustomer = new Customer();
         partialUpdatedCustomer.setId(customer.getId());
 
-        partialUpdatedCustomer.customerId(UPDATED_CUSTOMER_ID).age(UPDATED_AGE).gender(UPDATED_GENDER);
+        partialUpdatedCustomer.customerId(UPDATED_CUSTOMER_ID).age(UPDATED_AGE).gender(UPDATED_GENDER).matched(UPDATED_MATCHED);
 
         restCustomerMockMvc
             .perform(
@@ -339,6 +347,7 @@ class CustomerResourceIT {
         assertThat(testCustomer.getCustomerId()).isEqualTo(UPDATED_CUSTOMER_ID);
         assertThat(testCustomer.getAge()).isEqualTo(UPDATED_AGE);
         assertThat(testCustomer.getGender()).isEqualTo(UPDATED_GENDER);
+        assertThat(testCustomer.getMatched()).isEqualTo(UPDATED_MATCHED);
     }
 
     @Test

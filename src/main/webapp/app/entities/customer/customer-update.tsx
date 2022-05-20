@@ -84,6 +84,7 @@ export const CustomerUpdate = (props: RouteComponentProps<{ id: string }>) => {
               <ValidatedField label="Customer Id" id="customer-customerId" name="customerId" data-cy="customerId" type="text" />
               <ValidatedField label="Age" id="customer-age" name="age" data-cy="age" type="text" />
               <ValidatedField label="Gender" id="customer-gender" name="gender" data-cy="gender" type="text" />
+              <ValidatedField label="Matched" id="customer-matched" name="matched" data-cy="matched" check type="checkbox" />
               <ValidatedField
                 label="Aisle Discount"
                 id="customer-aisleDiscount"

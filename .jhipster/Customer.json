@@ -16,6 +16,10 @@
     {
       "fieldName": "gender",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "matched",
+      "fieldType": "Boolean"
     }
   ],
   "fluentMethods": true,

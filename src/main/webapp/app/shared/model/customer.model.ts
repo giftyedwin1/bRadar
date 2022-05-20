@@ -5,7 +5,10 @@ export interface ICustomer {
   customerId?: string | null;
   age?: string | null;
   gender?: string | null;
+  matched?: boolean | null;
   aisleDiscounts?: IAisleDiscount[] | null;
 }
 
-export const defaultValue: Readonly<ICustomer> = {};
+export const defaultValue: Readonly<ICustomer> = {
+  matched: false,
+};
